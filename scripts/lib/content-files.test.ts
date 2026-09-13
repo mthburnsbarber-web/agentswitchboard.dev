@@ -69,8 +69,13 @@ describe('changelog updates', () => {
       return ['new', ...current];
     });
     expect(fs.readFileSync(target, 'utf8')).toBe('["untouched"]');
-    expect(fs.lstatSync(file).isSymbolicLink()).toBe(false);
-    expect(JSON.parse(fs.readFileSync(file, 'utf8'))).toEqual(['new', 'old']);
+    const descriptor = fs.openSync(file, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW);
+    try {
+      expect(fs.fstatSync(descriptor).isFile()).toBe(true);
+      expect(JSON.parse(fs.readFileSync(descriptor, 'utf8'))).toEqual(['new', 'old']);
+    } finally {
+      fs.closeSync(descriptor);
+    }
   });
 
   it('rejects a concurrent writer without removing its lock or changing data', () => {
