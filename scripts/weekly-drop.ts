@@ -21,6 +21,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { appendChangelog } from './lib/changelog';
+import { createJsonFile } from './lib/content-files';
 
 // ─── AGENTS TO ADD — edit this array, run, commit, then clear ────────────────
 const _AGENTS_ADDED_2026_06_15_SENTRY: AgentInput[] = [
@@ -637,11 +638,6 @@ function createAgent(agent: AgentInput, catSlugs: Set<string>): 'created' | 'ski
   }
 
   const file = path.join(CONTENT, 'agents', `${agent.slug}.json`);
-  if (fs.existsSync(file)) {
-    console.log(`  ⏭  ${agent.name} (${agent.slug}) already exists`);
-    return 'skipped';
-  }
-
   const now = new Date().toISOString();
   const record = {
     id: agent.slug,
@@ -668,7 +664,10 @@ function createAgent(agent: AgentInput, catSlugs: Set<string>): 'created' | 'ski
     updatedAt: now,
   };
 
-  fs.writeFileSync(file, JSON.stringify(record, null, 2) + '\n');
+  if (!createJsonFile(file, record)) {
+    console.log(`  ⏭  ${agent.name} (${agent.slug}) already exists`);
+    return 'skipped';
+  }
   appendChangelog({ action: 'added', slug: agent.slug, name: agent.name });
   console.log(`  ✅ ${agent.name}`);
   return 'created';
