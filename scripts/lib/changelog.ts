@@ -5,8 +5,8 @@
  * may omit them.
  */
 
-import * as fs from 'fs';
 import * as path from 'path';
+import { updateJsonFile } from './content-files';
 
 export interface ChangelogEntry {
   action: 'added' | 'removed' | 'updated';
@@ -19,12 +19,9 @@ export interface ChangelogEntry {
 const FILE = path.resolve(process.cwd(), 'content', 'changelog.json');
 
 export function appendChangelog(entries: ChangelogEntry | ChangelogEntry[]): void {
-  const list: ChangelogEntry[] = fs.existsSync(FILE)
-    ? JSON.parse(fs.readFileSync(FILE, 'utf8'))
-    : [];
   const additions = (Array.isArray(entries) ? entries : [entries]).map((e) => ({
     ...e,
     date: e.date ?? new Date().toISOString().slice(0, 10),
   }));
-  fs.writeFileSync(FILE, JSON.stringify([...additions, ...list], null, 2) + '\n');
+  updateJsonFile<ChangelogEntry[]>(FILE, (list = []) => [...additions, ...list]);
 }
