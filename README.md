@@ -42,6 +42,15 @@ cannot merge. A weekly job link-checks all ~480 URLs in the catalog.
 **Want to add or fix a listing? See [CONTRIBUTING.md](CONTRIBUTING.md).**
 Non-developers: [agentswitchboard.dev/submit](https://agentswitchboard.dev/submit).
 
+## Free kits
+
+- [Agent listing review kit](docs/free-agent-listing-review-kit.md) — quick
+  evidence standard for adding or rejecting a listing.
+- [MCP catalog query prompts](docs/mcp-catalog-query-prompts.md) — copy/paste
+  prompts for exploring the catalog from an MCP client.
+- [Agent entry JSON template](templates/agent-entry.template.json) — starting
+  point for a new `content/agents/<slug>.json` file.
+
 ## Development
 
 ```bash
