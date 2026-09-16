@@ -1,0 +1,29 @@
+{
+  "id": "your-slug",
+  "name": "Official Product Name",
+  "slug": "your-slug",
+  "description": "Starts with a verb. What it does and who it is for. Max 200 chars.",
+  "providerName": "Company or OSS org",
+  "providerUrl": "https://example.com",
+  "agentUrl": "https://docs.example.com",
+  "categories": ["code-devtools"],
+  "tags": ["specific-kebab-tag", "second-specific-tag"],
+  "skills": [
+    {
+      "id": "real-capability",
+      "name": "Real Capability",
+      "description": "Verb-first description of a real documented capability."
+    }
+  ],
+  "authType": "apiKey",
+  "supportsStreaming": false,
+  "supportsPushNotifications": false,
+  "status": "published",
+  "featured": false,
+  "verified": false,
+  "tier": "free",
+  "discoveredBy": "manual",
+  "accessMethods": ["api"],
+  "createdAt": "2026-09-16T00:00:00Z",
+  "updatedAt": "2026-09-16T00:00:00Z"
+}
